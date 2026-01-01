@@ -6,7 +6,7 @@ This repository contains the **Free For Charity** website built with Jekyll, a s
 
 ### Quick Links
 
-- 🌐 **[Live Site](https://ffcworkingsite2.org/)** - Production website
+- 🌐 **[Live Site](https://freeforcharity.github.io/FFC-IN-Single_Page_Template_Jekell/)** - GitHub Pages deployment
 - 📖 **[Jekyll Documentation](https://jekyllrb.com/docs/)** - Learn about Jekyll
 - 🔄 **[Conversion History](./HTML_CONVERSION_SUMMARY.md)** - Documentation of previous conversions
 
@@ -142,10 +142,10 @@ All legal and policy information is available on separate pages:
 
 The site is automatically built with Jekyll and deployed to GitHub Pages when changes are pushed to the `main` branch.
 
-- **Production URL**: https://ffcworkingsite2.org/
+- **Production URL**: https://freeforcharity.github.io/FFC-IN-Single_Page_Template_Jekell/
 - **Deployment**: Via GitHub Actions (`.github/workflows/deploy.yml`)
 - **Build Tool**: Jekyll (GitHub Pages native)
-- **Custom Domain**: Configured via `CNAME` file
+- **Repository Path**: Configured via `baseurl` in `_config.yml`
 
 ### Deployment Process
 
@@ -154,7 +154,7 @@ The site is automatically built with Jekyll and deployed to GitHub Pages when ch
 3. Runs tests and security checks
 4. Builds Jekyll site (`bundle exec jekyll build`)
 5. Deploys `_site/` directory to GitHub Pages
-6. Site is live at https://ffcworkingsite2.org/
+6. Site is live at https://freeforcharity.github.io/FFC-IN-Single_Page_Template_Jekell/
 
 ### Jekyll Features
 
@@ -225,7 +225,7 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 For questions or support, please contact:
 - **Email**: clarkemoyer@freeforcharity.org
-- **Website**: https://ffcworkingsite2.org/
+- **Website**: https://freeforcharity.github.io/FFC-IN-Single_Page_Template_Jekell/
 
 ---
 

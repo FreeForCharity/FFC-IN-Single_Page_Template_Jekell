@@ -3,8 +3,8 @@ title: Free For Charity
 description: >-
   Free For Charity connects students, professionals, and businesses with nonprofits 
   to reduce costs and increase revenues—putting more resources back into their missions.
-url: "https://ffcworkingsite2.org"
-baseurl: ""
+url: "https://freeforcharity.github.io"
+baseurl: "/FFC-IN-Single_Page_Template_Jekell"
 
 # Organization details
 organization:
@@ -68,6 +68,7 @@ exclude:
   - SECURITY.md
   - SUPPORT.md
   - THREAT-MODEL.md
+  - JEKYLL_CONVERSION.md
 
 # Default front matter
 defaults:
@@ -85,7 +86,7 @@ defaults:
 twitter:
   card: summary_large_image
 
-logo: /images/logo.webp
+logo: /FFC-IN-Single_Page_Template_Jekell/assets/images/logo.webp
 
 social:
   name: Free For Charity
