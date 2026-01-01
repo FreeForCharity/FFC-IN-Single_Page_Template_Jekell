@@ -1,14 +1,14 @@
 # Free For Charity Website
 
-## 📄 Pure HTML Static Website
+## 🎨 Jekyll Static Website
 
-This repository contains the **Free For Charity** website built with pure HTML, CSS, and JavaScript - no build process required!
+This repository contains the **Free For Charity** website built with Jekyll, a static site generator that's natively supported by GitHub Pages!
 
 ### Quick Links
 
 - 🌐 **[Live Site](https://ffcworkingsite2.org/)** - Production website
-- 📂 **[HTML Site Files](./html-site/)** - All website files
-- 🔄 **[Conversion History](./HTML_CONVERSION_SUMMARY.md)** - Documentation of React to HTML conversion
+- 📖 **[Jekyll Documentation](https://jekyllrb.com/docs/)** - Learn about Jekyll
+- 🔄 **[Conversion History](./HTML_CONVERSION_SUMMARY.md)** - Documentation of previous conversions
 
 ---
 
@@ -25,31 +25,84 @@ This repository contains the **Free For Charity** website built with pure HTML, 
 ## Repository Structure
 
 ```
-html-site/                      # Production website (deployed to GitHub Pages)
-├── index.html                 # Main homepage
-├── css/                       # Stylesheets
-│   └── styles.css            # All site styles
-├── js/                        # JavaScript files
-│   └── main.js               # Site functionality
-├── images/                    # Image assets (WebP optimized)
-├── svgs/                      # SVG icons
-├── videos/                    # Video files
-├── privacy-policy.html        # Privacy policy page
-├── cookie-policy.html         # Cookie policy page
-├── terms-of-service.html      # Terms of service page
-├── donation-policy.html       # Donation policy page
-├── free-for-charity-donation-policy.html
-├── vulnerability-disclosure-policy.html
-├── security-acknowledgements.html
-└── *.png, *.ico, *.webmanifest # Icons and manifest files
+_layouts/                        # Jekyll page templates
+├── default.html                # Main layout with header/footer
+└── page.html                   # Simple page layout for policy pages
 
-tests/                         # Playwright E2E tests for HTML site
-├── *.spec.ts                 # Test files
-└── README.md                  # Testing documentation
+_includes/                       # Reusable components
+├── header.html                 # Site header/navigation
+├── footer.html                 # Site footer
+└── cookie-consent.html         # Cookie consent banner
 
-docs-backup/                   # Archived documentation from React/Next.js version
-└── *.md                       # Historical reference files
+assets/                          # Static files
+├── css/                        # Stylesheets
+│   └── styles.css             # All site styles
+├── js/                         # JavaScript files
+│   └── main.js                # Site functionality
+├── images/                     # Image assets (WebP optimized)
+├── svgs/                       # SVG icons
+└── videos/                     # Video files
+
+index.html                       # Homepage (uses default layout)
+privacy-policy.md               # Privacy policy page
+cookie-policy.md                # Cookie policy page
+terms-of-service.md             # Terms of service page
+donation-policy.md              # Donation policy page
+free-for-charity-donation-policy.md
+vulnerability-disclosure-policy.md
+security-acknowledgements.md
+
+_config.yml                      # Jekyll configuration
+Gemfile                         # Ruby dependencies
+Gemfile.lock                    # Locked gem versions
+
+_site/                          # Generated site (not committed)
+html-site/                      # Legacy HTML version (archived)
+tests/                          # Playwright E2E tests
+docs-backup/                    # Archived documentation
 ```
+
+---
+
+## Local Development
+
+### Prerequisites
+
+- Ruby 3.2 or higher
+- Bundler gem (`gem install bundler`)
+
+### Setup and Run
+
+1. **Install dependencies:**
+   ```bash
+   bundle install
+   ```
+
+2. **Build the site:**
+   ```bash
+   bundle exec jekyll build
+   ```
+
+3. **Serve the site locally:**
+   ```bash
+   bundle exec jekyll serve
+   ```
+   Then visit http://localhost:4000
+
+4. **Serve with live reload:**
+   ```bash
+   bundle exec jekyll serve --livereload
+   ```
+
+### Making Changes
+
+- **Update homepage:** Edit `index.html`
+- **Update header/footer:** Edit files in `_includes/`
+- **Update page layout:** Edit files in `_layouts/`
+- **Update styles:** Edit `assets/css/styles.css`
+- **Update JavaScript:** Edit `assets/js/main.js`
+- **Update site config:** Edit `_config.yml`
+- **Add new page:** Create a new `.md` or `.html` file with frontmatter
 
 ---
 
@@ -87,117 +140,92 @@ All legal and policy information is available on separate pages:
 
 ## Deployment
 
-The site is automatically deployed to the custom apex domain when changes are pushed to the `main` branch.
+The site is automatically built with Jekyll and deployed to GitHub Pages when changes are pushed to the `main` branch.
 
 - **Production URL**: https://ffcworkingsite2.org/
-- **Deployment**: Via GitHub Actions (`.github/workflows/deploy.yml`) to GitHub Pages with custom domain
-- **Custom Domain**: Configured via `CNAME` file in `html-site/` directory
-- **No Build Step**: Pure HTML files are served directly from the `html-site/` directory
+- **Deployment**: Via GitHub Actions (`.github/workflows/deploy.yml`)
+- **Build Tool**: Jekyll (GitHub Pages native)
+- **Custom Domain**: Configured via `CNAME` file
 
-### ⚠️ Custom Domain Dependency
+### Deployment Process
 
-**Important**: This site has a critical dependency on the custom domain (ffcworkingsite2.org). All asset paths are root-relative (e.g., `/css/styles.css`, `/images/`), which requires the site to be served from a domain root.
+1. Push changes to `main` branch
+2. GitHub Actions workflow triggers
+3. Runs tests and security checks
+4. Builds Jekyll site (`bundle exec jekyll build`)
+5. Deploys `_site/` directory to GitHub Pages
+6. Site is live at https://ffcworkingsite2.org/
 
-**Implications**:
-- The site will **NOT** work if accessed via the GitHub Pages subpath URL (https://freeforcharity.github.io/FFC-IN-Single_Page_Template_HTML/)
-- The `CNAME` file in `html-site/` is critical for proper deployment
-- If the custom domain expires, becomes misconfigured, or is removed, the site will be broken
+### Jekyll Features
 
-**Operational Requirements**:
-1. **Domain Renewal**: Ensure ffcworkingsite2.org domain renewal is monitored and automated
-2. **CNAME File**: Never remove or modify the `html-site/CNAME` file without updating asset paths
-3. **Monitoring**: Set up alerts for domain expiration and SSL certificate renewal
-
-**Contingency Plan**:
-If the custom domain becomes unavailable and the site needs to work on the GitHub Pages URL, you must:
-1. Restore the basePath prefix to all asset paths (revert to the commit before basePath removal, or manually add the prefix)
-2. Update all `/css/` → `/FFC-IN-Single_Page_Template_HTML/css/`
-3. Update all `/images/` → `/FFC-IN-Single_Page_Template_HTML/images/`
-4. Update all navigation `/#section` → `/FFC-IN-Single_Page_Template_HTML/#section`
-
----
-
-## Local Development
-
-No build process or dependencies required! Simply open the HTML files in your browser:
-
-```bash
-# Clone the repository
-git clone https://github.com/FreeForCharity/FFC-IN-Single_Page_Template_HTML.git
-cd FFC-IN-Single_Page_Template_HTML
-
-# Open in browser
-cd html-site
-open index.html  # macOS
-# or
-xdg-open index.html  # Linux
-# or just double-click index.html in Windows
-```
-
-### Using a Local HTTP Server (Optional)
-
-For testing features that require a web server (like cookies or CORS):
-
-```bash
-# Using Python (usually pre-installed)
-cd html-site
-python3 -m http.server 8000
-# Visit http://localhost:8000
-
-# Or using PHP (if installed)
-cd html-site
-php -S localhost:8000
-
-# Or using Node.js http-server (if you have Node installed)
-npx http-server html-site -p 8000
-```
+- **Templating**: DRY (Don't Repeat Yourself) code with layouts and includes
+- **SEO Tags**: Automatic meta tags for better search engine optimization
+- **Sitemap**: Auto-generated sitemap.xml
+- **Feed**: Auto-generated RSS feed
+- **Liquid**: Dynamic content generation
+- **Markdown Support**: Write content in markdown
 
 ---
 
 ## Testing
 
-The repository includes Playwright E2E tests to validate HTML site functionality:
+The repository includes Playwright end-to-end tests:
 
 ```bash
-# Install dependencies (first time only)
-npm install
-
-# Run all tests
+# Run tests (after building the site)
 npm test
+
+# Run tests in headed mode
+npm run test:headed
 
 # Run tests with UI
 npm run test:ui
-
-# Run tests in headed mode (see browser)
-npm run test:headed
 ```
-
-Tests validate:
-- Page loading and navigation
-- Image rendering
-- Cookie consent functionality
-- Form functionality
-- Social media links
-- Copyright information
-- Mobile responsiveness
-
-See [tests/README.md](./tests/README.md) for detailed testing documentation.
 
 ---
 
-## Making Changes
+## Jekyll Advantages
 
-1. Edit HTML, CSS, or JavaScript files in the `html-site/` directory
-2. Test locally in your browser
-3. Commit and push to the `main` branch
-4. GitHub Actions will automatically deploy to GitHub Pages
+This site uses Jekyll instead of plain HTML for several benefits:
 
-### File Organization
+1. **DRY Code**: Header, footer, and other components defined once and reused
+2. **Maintainability**: Update navigation links in one file instead of 8+ files
+3. **SEO**: Automatic sitemap, meta tags, and structured data
+4. **GitHub Pages Native**: No external build process needed
+5. **Content Management**: Add new pages easily with frontmatter
+6. **Version Control**: Separate content (markdown) from presentation (layouts)
 
-- **HTML**: Main structure and content in `*.html` files
-- **CSS**: All styles in `html-site/css/styles.css`
-- **JavaScript**: Functionality in `html-site/js/main.js`
-- **Assets**: Images in `images/`, SVGs in `svgs/`, videos in `videos/`
+---
+
+## Migration Notes
+
+This site was previously a pure HTML static site. The Jekyll conversion maintains all functionality while adding:
+- Reusable templates
+- Better SEO
+- Easier content updates
+- Automatic sitemap and feed generation
+
+The legacy HTML version is preserved in the `html-site/` directory for reference.
+
+---
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to contribute to this project.
+
+---
+
+## License
+
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## Contact
+
+For questions or support, please contact:
+- **Email**: clarkemoyer@freeforcharity.org
+- **Website**: https://ffcworkingsite2.org/
 
 ---
 
@@ -208,10 +236,10 @@ This repository follows **Cloud Native Computing Foundation (CNCF)** standards f
 ### Project Governance and Policies
 
 - 📜 **[LICENSE](./LICENSE)** - Apache 2.0 open source license
-- 🤝 **[CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)** - Community standards (Contributor Covenant 2.1)
+- �� **[CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)** - Community standards (Contributor Covenant 2.1)
 - ⚖️ **[GOVERNANCE.md](./GOVERNANCE.md)** - Decision-making processes
 - 👥 **[MAINTAINERS.md](./MAINTAINERS.md)** - Repository maintainers and their roles
-- 🎉 **[CONTRIBUTORS.md](./CONTRIBUTORS.md)** - Recognition of all contributors
+- �� **[CONTRIBUTORS.md](./CONTRIBUTORS.md)** - Recognition of all contributors
 - 🔒 **[SECURITY.md](./SECURITY.md)** - Vulnerability reporting and security practices
 - 🛡️ **[THREAT-MODEL.md](./THREAT-MODEL.md)** - Security threat analysis
 - 🌟 **[ADOPTERS.md](./ADOPTERS.md)** - Organizations using this template
@@ -225,25 +253,12 @@ This repository follows **Cloud Native Computing Foundation (CNCF)** standards f
 
 ---
 
-## Contributing
-
-We welcome contributions! Please see our [Contributing Guide](./CONTRIBUTING.md) for details on:
-- Code of Conduct
-- How to submit issues
-- How to submit pull requests
-- Coding standards
-
----
-
-## License
-
-This project is licensed under the Apache License 2.0 - see the [LICENSE](./LICENSE) file for details.
-
----
-
 ## Historical Context
 
-This repository originally contained a React/Next.js application that was converted to pure HTML/CSS/JavaScript. For details on the conversion process and what was changed, see:
+This repository has evolved through several technology stacks:
+1. **React/Next.js Application** → **Pure HTML/CSS/JavaScript** → **Jekyll Static Site**
+
+The Jekyll conversion maintains all functionality while adding benefits of a static site generator. For details on previous conversions:
 - [HTML Conversion Summary](./HTML_CONVERSION_SUMMARY.md)
 - [HTML Conversion Assessment](./HTML_CONVERSION_ASSESSMENT.md)
 - [HTML Conversion Verification](./HTML_CONVERSION_VERIFICATION.md)
