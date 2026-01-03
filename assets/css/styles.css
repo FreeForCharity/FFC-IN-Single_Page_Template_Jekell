@@ -2020,3 +2020,96 @@ h6 {
     font-size: 16px;
   }
 }
+
+/* ===========================
+   Page Layout & Typography
+   =========================== */
+
+.page-wrapper {
+  padding-top: 140px; /* Offset for fixed header */
+  padding-bottom: 60px;
+  min-height: 60vh;
+}
+
+.page-content {
+  max-width: 800px; /* Optimal readability width */
+  margin: 0 auto;
+  font-family: var(--font-open-sans);
+}
+
+.page-content h1 {
+  font-family: var(--font-faustina);
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--color-accent);
+  line-height: 1.2;
+}
+
+.page-content h2 {
+  font-family: var(--font-faustina);
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--color-primary);
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+.page-content h3 {
+  font-family: var(--font-lato);
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.8rem;
+  color: var(--color-accent);
+}
+
+.page-content p {
+  margin-bottom: 1.2rem;
+  line-height: 1.8;
+  color: var(--color-gray);
+  font-size: 1.05rem;
+}
+
+.page-content ul, 
+.page-content ol {
+  margin-bottom: 1.5rem;
+  padding-left: 2rem;
+  color: var(--color-gray);
+}
+
+.page-content li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+.page-content a {
+  color: var(--color-link);
+  text-decoration: underline;
+}
+
+.page-content a:hover {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.page-content strong {
+  color: var(--color-black);
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .page-wrapper {
+    padding-top: 110px; /* Smaller offset for mobile header */
+  }
+  
+  .page-content h1 {
+    font-size: 2rem;
+  }
+  
+  .page-content h2 {
+    font-size: 1.5rem;
+  }
+}
