@@ -176,10 +176,10 @@ If you want to use a custom domain:
    - **Type**: A or ALIAS (depending on DNS provider)
    - **Name**: @ (root domain)
    - **Value**: GitHub Pages IP addresses:
-     - 185.199.108.153
-     - 185.199.109.153
-     - 185.199.110.153
-     - 185.199.111.153
+- 185.199.108.153
+- 185.199.109.153
+- 185.199.110.153
+- 185.199.111.153
 
    For www subdomain (optional):
    - **Type**: CNAME
@@ -391,3 +391,4 @@ Before deploying to production:
 - [GitHub Actions Documentation](https://docs.github.com/en/actions)
 - [Custom Domain Setup](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site)
 - [Troubleshooting GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/troubleshooting-404-errors-for-github-pages-sites)
+

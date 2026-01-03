@@ -212,11 +212,11 @@ Based on `html-site/css/styles.css`:
 
 @media (min-width: 1024px) {
   .desktop-nav {
-    display: flex;        /* Show at 1024px+ */
+display: flex;        /* Show at 1024px+ */
   }
   
   .mobile-menu-toggle {
-    display: none;        /* Hide at 1024px+ */
+display: none;        /* Hide at 1024px+ */
   }
 }
 ```
@@ -358,3 +358,4 @@ The HTML static version successfully implements a mobile-first responsive design
 These differences are **functional** and don't break the site, but they **do create an inconsistent user experience** compared to the React version, particularly for tablet users (768px-1024px range).
 
 **Recommendation**: Align the HTML breakpoints with the Next.js version to ensure users have an identical experience on both sites.
+

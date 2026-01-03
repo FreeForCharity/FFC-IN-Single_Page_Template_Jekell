@@ -156,3 +156,4 @@ For a complete list of all contributors (including maintainers), see [CONTRIBUTO
 **Version**: 1.1
 
 For governance policies and decision-making processes, see [GOVERNANCE.md](./GOVERNANCE.md).
+

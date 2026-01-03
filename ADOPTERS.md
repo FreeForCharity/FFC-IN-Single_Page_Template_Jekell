@@ -100,3 +100,4 @@ Thank you for being part of the Free For Charity community!
 ---
 
 **CNCF Alignment**: This adopters list promotes transparency and community engagement in alignment with CNCF project standards.
+

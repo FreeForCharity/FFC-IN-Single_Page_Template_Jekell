@@ -35,7 +35,7 @@ Both requests resulted in 404 errors because `GTM-XXXXXXX` is not a valid Google
 <!-- Google Tag Manager -->
 <script>
   ;(function (w, d, s, l, i) {
-    // ... GTM initialization code ...
+// ... GTM initialization code ...
   })(window, document, 'script', 'dataLayer', 'GTM-XXXXXXX')
 </script>
 
@@ -51,7 +51,7 @@ Both requests resulted in 404 errors because `GTM-XXXXXXX` is not a valid Google
 <!-- GTM Script Disabled
 <script>
   ;(function (w, d, s, l, i) {
-    // ... GTM initialization code ...
+// ... GTM initialization code ...
   })(window, document, 'script', 'dataLayer', 'GTM-XXXXXXX')
 </script>
 -->
@@ -93,7 +93,7 @@ To enable Google Tag Manager tracking on the site:
 <!-- Google Tag Manager -->
 <script>
   ;(function (w, d, s, l, i) {
-    // ... GTM initialization code ...
+// ... GTM initialization code ...
   })(window, document, 'script', 'dataLayer', 'GTM-ABC1234')  // Replace with real ID
 </script>
 
@@ -120,3 +120,4 @@ To enable Google Tag Manager tracking on the site:
 ## Related Files Modified
 
 - `html-site/index.html` - Commented out GTM code blocks
+

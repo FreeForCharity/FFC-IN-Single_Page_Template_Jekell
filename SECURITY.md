@@ -482,3 +482,4 @@ If you have questions about these security measures or need help setting up your
 
 **Last Updated**: December 2025  
 **Applies to**: All contributors with write access to the repository
+

@@ -220,11 +220,11 @@ Add security headers to improve site security (Free plan includes 10 Transform R
    - **Rule name:** "Security Headers"
    - **When incoming requests match:** All incoming requests
    - **Then...** Add multiple "Set static" header actions:
-     - `X-Content-Type-Options`: `nosniff`
-     - `X-Frame-Options`: `SAMEORIGIN`
-     - `X-XSS-Protection`: `1; mode=block`
-     - `Referrer-Policy`: `strict-origin-when-cross-origin`
-     - `Permissions-Policy`: `geolocation=(), microphone=(), camera=()`
+- `X-Content-Type-Options`: `nosniff`
+- `X-Frame-Options`: `SAMEORIGIN`
+- `X-XSS-Protection`: `1; mode=block`
+- `Referrer-Policy`: `strict-origin-when-cross-origin`
+- `Permissions-Policy`: `geolocation=(), microphone=(), camera=()`
 
 ---
 
@@ -361,3 +361,4 @@ After configuring Cloudflare:
 **Last Updated:** 2025-12-05
 
 For questions or issues, contact Free For Charity at hello@freeforcharity.org
+

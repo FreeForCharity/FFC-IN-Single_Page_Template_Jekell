@@ -443,3 +443,4 @@ This threat model should be reviewed:
 **Next Review**: December 6, 2026
 
 For security policies and vulnerability reporting, see [SECURITY.md](./SECURITY.md).
+

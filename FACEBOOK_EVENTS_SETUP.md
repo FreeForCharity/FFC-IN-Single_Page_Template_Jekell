@@ -42,132 +42,132 @@ const Events: React.FC = () => {
   const [fbSdkLoaded, setFbSdkLoaded] = useState(false)
 
   useEffect(() => {
-    // Check if marketing consent has been given
-    const consent = localStorage.getItem('cookie_consent')
-    if (consent) {
-      const consentData = JSON.parse(consent)
-      if (consentData.marketing) {
-        setConsentGiven(true)
-      }
-    }
+// Check if marketing consent has been given
+const consent = localStorage.getItem('cookie_consent')
+if (consent) {
+const consentData = JSON.parse(consent)
+if (consentData.marketing) {
+setConsentGiven(true)
+}
+}
 
-    // Listen for consent changes
-    const handleConsentChange = (event: CustomEvent) => {
-      if (event.detail.marketing) {
-        setConsentGiven(true)
-      }
-    }
+// Listen for consent changes
+const handleConsentChange = (event: CustomEvent) => {
+if (event.detail.marketing) {
+setConsentGiven(true)
+}
+}
 
-    window.addEventListener('cookieConsentChange' as any, handleConsentChange)
-    return () => {
-      window.removeEventListener('cookieConsentChange' as any, handleConsentChange)
-    }
+window.addEventListener('cookieConsentChange' as any, handleConsentChange)
+return () => {
+window.removeEventListener('cookieConsentChange' as any, handleConsentChange)
+}
   }, [])
 
   useEffect(() => {
-    if (consentGiven && !fbSdkLoaded) {
-      loadFacebookSDK()
-    }
+if (consentGiven && !fbSdkLoaded) {
+loadFacebookSDK()
+}
   }, [consentGiven, fbSdkLoaded])
 
   const loadFacebookSDK = () => {
-    // Check if SDK is already loaded
-    if (document.getElementById('facebook-jssdk')) {
-      setFbSdkLoaded(true)
-      return
-    }
+// Check if SDK is already loaded
+if (document.getElementById('facebook-jssdk')) {
+setFbSdkLoaded(true)
+return
+}
 
-    // Create and append Facebook SDK script
-    const script = document.createElement('script')
-    script.id = 'facebook-jssdk'
-    script.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v19.0'
-    script.async = true
-    script.defer = true
-    script.crossOrigin = 'anonymous'
-    script.onload = () => {
-      setFbSdkLoaded(true)
-    }
+// Create and append Facebook SDK script
+const script = document.createElement('script')
+script.id = 'facebook-jssdk'
+script.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v19.0'
+script.async = true
+script.defer = true
+script.crossOrigin = 'anonymous'
+script.onload = () => {
+setFbSdkLoaded(true)
+}
 
-    const firstScript = document.getElementsByTagName('script')[0]
-    firstScript.parentNode?.insertBefore(script, firstScript)
+const firstScript = document.getElementsByTagName('script')[0]
+firstScript.parentNode?.insertBefore(script, firstScript)
   }
 
   const openCookieSettings = () => {
-    // Trigger cookie settings modal
-    const event = new CustomEvent('openCookieSettings')
-    window.dispatchEvent(event)
+// Trigger cookie settings modal
+const event = new CustomEvent('openCookieSettings')
+window.dispatchEvent(event)
   }
 
   return (
-    <div id="events" className="py-[52px]">
-      <div className="w-[90%] mx-auto max-w-7xl">
-        <h1
-          className="font-[400] text-[40px] lg:text-[48px] tracking-[0] text-center mx-auto mb-[50px]"
-          id="faustina-font"
-        >
-          Upcoming Events
-        </h1>
+<div id="events" className="py-[52px]">
+<div className="w-[90%] mx-auto max-w-7xl">
+<h1
+className="font-[400] text-[40px] lg:text-[48px] tracking-[0] text-center mx-auto mb-[50px]"
+id="faustina-font"
+>
+Upcoming Events
+</h1>
 
-        <div className="text-center mb-8">
-          <p className="text-[20px] lg:text-[25px] font-[400]" id="lato-font">
-            Join us for upcoming volunteer opportunities, training sessions, and community events.{' '}
-            <a
-              href="https://www.facebook.com/freeforcharity"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#2EA3F2] hover:underline"
-            >
-              View all events on Facebook
-            </a>
-          </p>
-        </div>
+<div className="text-center mb-8">
+<p className="text-[20px] lg:text-[25px] font-[400]" id="lato-font">
+Join us for upcoming volunteer opportunities, training sessions, and community events.{' '}
+<a
+href="https://www.facebook.com/freeforcharity"
+target="_blank"
+rel="noopener noreferrer"
+className="text-[#2EA3F2] hover:underline"
+>
+View all events on Facebook
+</a>
+</p>
+</div>
 
-        {consentGiven ? (
-          <div className="flex justify-center">
-            <div
-              className="fb-page"
-              data-href="https://www.facebook.com/freeforcharity"
-              data-tabs="events"
-              data-width="500"
-              data-height="600"
-              data-small-header="false"
-              data-adapt-container-width="true"
-              data-hide-cover="false"
-              data-show-facepile="false"
-            >
-              <blockquote
-                cite="https://www.facebook.com/freeforcharity"
-                className="fb-xfbml-parse-ignore"
-              >
-                <a href="https://www.facebook.com/freeforcharity">Free For Charity</a>
-              </blockquote>
-            </div>
-          </div>
-        ) : (
-          <div
-            className="text-center py-12 px-6 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300 max-w-2xl mx-auto"
-            data-testid="events-consent-required"
-          >
-            <h3 className="text-2xl font-semibold mb-4" id="lato-font">
-              Connect with Our Community
-            </h3>
-            <p className="text-lg text-gray-600 mb-6" id="lato-font">
-              To view our upcoming Facebook events, please accept marketing and social media
-              cookies.
-            </p>
-            <button
-              onClick={openCookieSettings}
-              className="bg-orange-500 text-white px-6 py-3 rounded-md hover:bg-orange-600 transition-colors font-[500]"
-              id="lato-font"
-            >
-              Manage Cookie Preferences
-            </button>
-          </div>
-        )}
-      </div>
+{consentGiven ? (
+<div className="flex justify-center">
+<div
+className="fb-page"
+data-href="https://www.facebook.com/freeforcharity"
+data-tabs="events"
+data-width="500"
+data-height="600"
+data-small-header="false"
+data-adapt-container-width="true"
+data-hide-cover="false"
+data-show-facepile="false"
+>
+<blockquote
+cite="https://www.facebook.com/freeforcharity"
+className="fb-xfbml-parse-ignore"
+>
+<a href="https://www.facebook.com/freeforcharity">Free For Charity</a>
+</blockquote>
+</div>
+</div>
+) : (
+<div
+className="text-center py-12 px-6 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300 max-w-2xl mx-auto"
+data-testid="events-consent-required"
+>
+<h3 className="text-2xl font-semibold mb-4" id="lato-font">
+Connect with Our Community
+</h3>
+<p className="text-lg text-gray-600 mb-6" id="lato-font">
+To view our upcoming Facebook events, please accept marketing and social media
+cookies.
+</p>
+<button
+onClick={openCookieSettings}
+className="bg-orange-500 text-white px-6 py-3 rounded-md hover:bg-orange-600 transition-colors font-[500]"
+id="lato-font"
+>
+Manage Cookie Preferences
+</button>
+</div>
+)}
+</div>
 
-      <div className="w-[95%] mt-[50px] mx-auto border border-[#2B627B]"></div>
-    </div>
+<div className="w-[95%] mt-[50px] mx-auto border border-[#2B627B]"></div>
+</div>
   )
 }
 
@@ -194,19 +194,19 @@ import Events from '@/components/home-page/Events' // Add this import
 
 const index = () => {
   return (
-    <div>
-      <Hero />
-      <Mission />
-      <Results2023 />
-      <Testimonials />
-      <VolunteerwithUs />
-      <Events /> {/* Add this line */}
-      <SupportFreeForCharity />
-      <EndowmentFeatures />
-      <OurPrograms />
-      <FrequentlyAskedQuestions />
-      <TheFreeForCharityTeam />
-    </div>
+<div>
+<Hero />
+<Mission />
+<Results2023 />
+<Testimonials />
+<VolunteerwithUs />
+<Events /> {/* Add this line */}
+<SupportFreeForCharity />
+<EndowmentFeatures />
+<OurPrograms />
+<FrequentlyAskedQuestions />
+<TheFreeForCharityTeam />
+</div>
   )
 }
 
@@ -223,10 +223,10 @@ Add the following after consent is updated (look for where `localStorage.setItem
 // After saving consent, dispatch custom event
 const consentEvent = new CustomEvent('cookieConsentChange', {
   detail: {
-    necessary: true,
-    functional: consent.functional,
-    analytics: consent.analytics,
-    marketing: consent.marketing,
+necessary: true,
+functional: consent.functional,
+analytics: consent.analytics,
+marketing: consent.marketing,
   },
 })
 window.dispatchEvent(consentEvent)
@@ -237,12 +237,12 @@ Also add an event listener for opening cookie settings:
 ```typescript
 useEffect(() => {
   const handleOpenSettings = () => {
-    setShowBanner(true)
+setShowBanner(true)
   }
 
   window.addEventListener('openCookieSettings', handleOpenSettings)
   return () => {
-    window.removeEventListener('openCookieSettings', handleOpenSettings)
+window.removeEventListener('openCookieSettings', handleOpenSettings)
   }
 }, [])
 ```
@@ -293,12 +293,12 @@ Find the section about third-party services and add:
   your cookie preferences through our cookie consent banner. You may also opt out of Facebook
   tracking through your Facebook ad settings at{' '}
   <a
-    href="https://www.facebook.com/settings/?tab=ads"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="text-blue-600 hover:underline"
+href="https://www.facebook.com/settings/?tab=ads"
+target="_blank"
+rel="noopener noreferrer"
+className="text-blue-600 hover:underline"
   >
-    https://www.facebook.com/settings/?tab=ads
+https://www.facebook.com/settings/?tab=ads
   </a>
   .
 </p>
@@ -322,22 +322,22 @@ Find the marketing cookies section and add:
   <br />
   <strong>Privacy Policy:</strong>{' '}
   <a
-    href="https://www.facebook.com/privacy/policy/"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="text-blue-600 hover:underline"
+href="https://www.facebook.com/privacy/policy/"
+target="_blank"
+rel="noopener noreferrer"
+className="text-blue-600 hover:underline"
   >
-    https://www.facebook.com/privacy/policy/
+https://www.facebook.com/privacy/policy/
   </a>
   <br />
   <strong>Opt-out:</strong>{' '}
   <a
-    href="https://www.facebook.com/settings/?tab=ads"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="text-blue-600 hover:underline"
+href="https://www.facebook.com/settings/?tab=ads"
+target="_blank"
+rel="noopener noreferrer"
+className="text-blue-600 hover:underline"
   >
-    Facebook Ad Settings
+Facebook Ad Settings
   </a>
 </p>
 ```
@@ -403,97 +403,97 @@ import { test, expect } from '@playwright/test'
 
 test.describe('Facebook Events Section', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/')
+await page.goto('/')
   })
 
   test('should show events section with heading', async ({ page }) => {
-    // Scroll to events section
-    await page.locator('#events').scrollIntoViewIfNeeded()
+// Scroll to events section
+await page.locator('#events').scrollIntoViewIfNeeded()
 
-    // Verify section exists
-    await expect(page.locator('#events')).toBeVisible()
+// Verify section exists
+await expect(page.locator('#events')).toBeVisible()
 
-    // Verify heading
-    const heading = page.locator('#events h1')
-    await expect(heading).toBeVisible()
-    await expect(heading).toContainText('Upcoming Events')
+// Verify heading
+const heading = page.locator('#events h1')
+await expect(heading).toBeVisible()
+await expect(heading).toContainText('Upcoming Events')
   })
 
   test('should show consent placeholder when cookies not accepted', async ({ page }) => {
-    // If cookie banner appears, reject cookies
-    const rejectButton = page.locator('button:has-text("Reject All")')
-    if (await rejectButton.isVisible({ timeout: 2000 }).catch(() => false)) {
-      await rejectButton.click()
-    }
+// If cookie banner appears, reject cookies
+const rejectButton = page.locator('button:has-text("Reject All")')
+if (await rejectButton.isVisible({ timeout: 2000 }).catch(() => false)) {
+await rejectButton.click()
+}
 
-    // Scroll to events section
-    await page.locator('#events').scrollIntoViewIfNeeded()
+// Scroll to events section
+await page.locator('#events').scrollIntoViewIfNeeded()
 
-    // Verify placeholder is shown
-    await expect(page.locator('[data-testid="events-consent-required"]')).toBeVisible()
+// Verify placeholder is shown
+await expect(page.locator('[data-testid="events-consent-required"]')).toBeVisible()
 
-    // Verify "Manage Cookie Preferences" button exists
-    await expect(page.locator('button:has-text("Manage Cookie Preferences")')).toBeVisible()
+// Verify "Manage Cookie Preferences" button exists
+await expect(page.locator('button:has-text("Manage Cookie Preferences")')).toBeVisible()
   })
 
   test('should show Facebook widget after accepting cookies', async ({ page }) => {
-    // Accept marketing cookies if banner appears
-    const acceptButton = page.locator('button:has-text("Accept All")')
-    if (await acceptButton.isVisible({ timeout: 2000 }).catch(() => false)) {
-      await acceptButton.click()
-    }
+// Accept marketing cookies if banner appears
+const acceptButton = page.locator('button:has-text("Accept All")')
+if (await acceptButton.isVisible({ timeout: 2000 }).catch(() => false)) {
+await acceptButton.click()
+}
 
-    // Scroll to events section
-    await page.locator('#events').scrollIntoViewIfNeeded()
+// Scroll to events section
+await page.locator('#events').scrollIntoViewIfNeeded()
 
-    // Wait for Facebook widget to load (may take a few seconds)
-    await page.waitForSelector('.fb-page', { timeout: 10000 })
+// Wait for Facebook widget to load (may take a few seconds)
+await page.waitForSelector('.fb-page', { timeout: 10000 })
 
-    // Verify Facebook widget container is present
-    await expect(page.locator('.fb-page')).toBeVisible()
+// Verify Facebook widget container is present
+await expect(page.locator('.fb-page')).toBeVisible()
   })
 
   test('should have link to Facebook page', async ({ page }) => {
-    await page.locator('#events').scrollIntoViewIfNeeded()
+await page.locator('#events').scrollIntoViewIfNeeded()
 
-    // Find link to Facebook page
-    const fbLink = page.locator('#events a[href*="facebook.com/freeforcharity"]').first()
-    await expect(fbLink).toBeVisible()
+// Find link to Facebook page
+const fbLink = page.locator('#events a[href*="facebook.com/freeforcharity"]').first()
+await expect(fbLink).toBeVisible()
 
-    // Verify link opens in new tab
-    await expect(fbLink).toHaveAttribute('target', '_blank')
-    await expect(fbLink).toHaveAttribute('rel', /noopener/)
+// Verify link opens in new tab
+await expect(fbLink).toHaveAttribute('target', '_blank')
+await expect(fbLink).toHaveAttribute('rel', /noopener/)
   })
 
   test('should be keyboard accessible', async ({ page }) => {
-    await page.locator('#events').scrollIntoViewIfNeeded()
+await page.locator('#events').scrollIntoViewIfNeeded()
 
-    // Tab to events section link
-    await page.keyboard.press('Tab')
+// Tab to events section link
+await page.keyboard.press('Tab')
 
-    // Check if any element within events section can receive focus
-    const focusedElement = page.locator('#events :focus')
-    const isEventsSectionFocused = await focusedElement.count().then((count) => count > 0)
+// Check if any element within events section can receive focus
+const focusedElement = page.locator('#events :focus')
+const isEventsSectionFocused = await focusedElement.count().then((count) => count > 0)
 
-    // This is informational - keyboard accessibility should be manually verified
-    console.log('Events section keyboard accessible:', isEventsSectionFocused)
+// This is informational - keyboard accessibility should be manually verified
+console.log('Events section keyboard accessible:', isEventsSectionFocused)
   })
 
   test('should maintain section ID for navigation', async ({ page }) => {
-    // Navigate directly to events section via hash
-    await page.goto('/#events')
+// Navigate directly to events section via hash
+await page.goto('/#events')
 
-    // Verify we're at the events section
-    const eventsSection = page.locator('#events')
-    await expect(eventsSection).toBeVisible()
+// Verify we're at the events section
+const eventsSection = page.locator('#events')
+await expect(eventsSection).toBeVisible()
 
-    // Verify the section is scrolled into view
-    const isInViewport = await eventsSection.evaluate((el) => {
-      const rect = el.getBoundingClientRect()
-      return rect.top >= 0 && rect.top < window.innerHeight
-    })
+// Verify the section is scrolled into view
+const isInViewport = await eventsSection.evaluate((el) => {
+const rect = el.getBoundingClientRect()
+return rect.top >= 0 && rect.top < window.innerHeight
+})
 
-    expect(isInViewport).toBe(true)
+expect(isInViewport).toBe(true)
   })
 })
 ```
@@ -661,22 +661,22 @@ name: Refresh Facebook Token
 
 on:
   schedule:
-    # Run every 50 days at 2am UTC
-    - cron: '0 2 */50 * *'
+# Run every 50 days at 2am UTC
+- cron: '0 2 */50 * *'
   workflow_dispatch: # Allow manual trigger
 
 jobs:
   refresh-token:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Refresh Facebook Token
-        run: |
-          # Call your token refresh endpoint or script
-          # Update GitHub secrets via API
-          echo "Token refresh logic here"
-        env:
-          FACEBOOK_APP_ID: ${{ secrets.FACEBOOK_APP_ID }}
-          FACEBOOK_APP_SECRET: ${{ secrets.FACEBOOK_APP_SECRET }}
+runs-on: ubuntu-latest
+steps:
+- name: Refresh Facebook Token
+run: |
+# Call your token refresh endpoint or script
+# Update GitHub secrets via API
+echo "Token refresh logic here"
+env:
+FACEBOOK_APP_ID: ${{ secrets.FACEBOOK_APP_ID }}
+FACEBOOK_APP_SECRET: ${{ secrets.FACEBOOK_APP_SECRET }}
 ```
 
 #### 10. Submit for App Review (If Needed)
@@ -717,12 +717,12 @@ interface FacebookEvent {
   start_time: string
   end_time?: string
   place?: {
-    name: string
-    location?: {
-      city: string
-      state: string
-      street: string
-    }
+name: string
+location?: {
+city: string
+state: string
+street: string
+}
   }
 }
 
@@ -731,30 +731,30 @@ export async function fetchFacebookEvents(): Promise<FacebookEvent[]> {
   const accessToken = process.env.FACEBOOK_ACCESS_TOKEN
 
   if (!pageId || !accessToken) {
-    console.error('Facebook credentials not configured')
-    return []
+console.error('Facebook credentials not configured')
+return []
   }
 
   try {
-    const response = await fetch(
-      `https://graph.facebook.com/v19.0/${pageId}/events?` +
-        `fields=name,description,start_time,end_time,place&` +
-        `time_filter=upcoming&` +
-        `access_token=${accessToken}`,
-      {
-        next: { revalidate: 3600 }, // Cache for 1 hour
-      }
-    )
+const response = await fetch(
+`https://graph.facebook.com/v19.0/${pageId}/events?` +
+`fields=name,description,start_time,end_time,place&` +
+`time_filter=upcoming&` +
+`access_token=${accessToken}`,
+{
+next: { revalidate: 3600 }, // Cache for 1 hour
+}
+)
 
-    if (!response.ok) {
-      throw new Error(`Facebook API error: ${response.status}`)
-    }
+if (!response.ok) {
+throw new Error(`Facebook API error: ${response.status}`)
+}
 
-    const data = await response.json()
-    return data.data || []
+const data = await response.json()
+return data.data || []
   } catch (error) {
-    console.error('Error fetching Facebook events:', error)
-    return []
+console.error('Error fetching Facebook events:', error)
+return []
   }
 }
 ```
@@ -774,11 +774,11 @@ interface EventCardProps {
   startTime: string
   endTime?: string
   place?: {
-    name: string
-    location?: {
-      city: string
-      state: string
-    }
+name: string
+location?: {
+city: string
+state: string
+}
   }
 }
 
@@ -791,75 +791,75 @@ const EventCard: React.FC<EventCardProps> = ({
   place,
 }) => {
   const formatDate = (dateString: string) => {
-    const date = new Date(dateString)
-    return date.toLocaleDateString('en-US', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    })
+const date = new Date(dateString)
+return date.toLocaleDateString('en-US', {
+weekday: 'long',
+year: 'numeric',
+month: 'long',
+day: 'numeric',
+})
   }
 
   const formatTime = (dateString: string) => {
-    const date = new Date(dateString)
-    return date.toLocaleTimeString('en-US', {
-      hour: 'numeric',
-      minute: '2-digit',
-    })
+const date = new Date(dateString)
+return date.toLocaleTimeString('en-US', {
+hour: 'numeric',
+minute: '2-digit',
+})
   }
 
   const truncateDescription = (text: string, maxLength: number = 150) => {
-    if (text.length <= maxLength) return text
-    return text.substring(0, maxLength).trim() + '...'
+if (text.length <= maxLength) return text
+return text.substring(0, maxLength).trim() + '...'
   }
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow">
-      <h3 className="text-2xl font-semibold mb-3" id="lato-font">
-        {name}
-      </h3>
+<div className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow">
+<h3 className="text-2xl font-semibold mb-3" id="lato-font">
+{name}
+</h3>
 
-      <div className="space-y-2 mb-4">
-        <div className="flex items-center text-gray-600">
-          <Calendar className="w-5 h-5 mr-2 text-orange-500" />
-          <span id="lato-font">{formatDate(startTime)}</span>
-        </div>
+<div className="space-y-2 mb-4">
+<div className="flex items-center text-gray-600">
+<Calendar className="w-5 h-5 mr-2 text-orange-500" />
+<span id="lato-font">{formatDate(startTime)}</span>
+</div>
 
-        <div className="flex items-center text-gray-600">
-          <Clock className="w-5 h-5 mr-2 text-orange-500" />
-          <span id="lato-font">
-            {formatTime(startTime)}
-            {endTime && ` - ${formatTime(endTime)}`}
-          </span>
-        </div>
+<div className="flex items-center text-gray-600">
+<Clock className="w-5 h-5 mr-2 text-orange-500" />
+<span id="lato-font">
+{formatTime(startTime)}
+{endTime && ` - ${formatTime(endTime)}`}
+</span>
+</div>
 
-        {place && (
-          <div className="flex items-center text-gray-600">
-            <MapPin className="w-5 h-5 mr-2 text-orange-500" />
-            <span id="lato-font">
-              {place.name}
-              {place.location && `, ${place.location.city}, ${place.location.state}`}
-            </span>
-          </div>
-        )}
-      </div>
+{place && (
+<div className="flex items-center text-gray-600">
+<MapPin className="w-5 h-5 mr-2 text-orange-500" />
+<span id="lato-font">
+{place.name}
+{place.location && `, ${place.location.city}, ${place.location.state}`}
+</span>
+</div>
+)}
+</div>
 
-      {description && (
-        <p className="text-gray-700 mb-4" id="lato-font">
-          {truncateDescription(description)}
-        </p>
-      )}
+{description && (
+<p className="text-gray-700 mb-4" id="lato-font">
+{truncateDescription(description)}
+</p>
+)}
 
-      <a
-        href={`https://www.facebook.com/events/${id}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-block bg-orange-500 text-white px-6 py-2 rounded-md hover:bg-orange-600 transition-colors font-[500]"
-        id="lato-font"
-      >
-        View on Facebook
-      </a>
-    </div>
+<a
+href={`https://www.facebook.com/events/${id}`}
+target="_blank"
+rel="noopener noreferrer"
+className="inline-block bg-orange-500 text-white px-6 py-2 rounded-md hover:bg-orange-600 transition-colors font-[500]"
+id="lato-font"
+>
+View on Facebook
+</a>
+</div>
   )
 }
 
@@ -879,55 +879,55 @@ const Events: React.FC = async () => {
   const events = await fetchFacebookEvents()
 
   return (
-    <div id="events" className="py-[52px]">
-      <div className="w-[90%] mx-auto max-w-7xl">
-        <h1
-          className="font-[400] text-[40px] lg:text-[48px] tracking-[0] text-center mx-auto mb-[50px]"
-          id="faustina-font"
-        >
-          Upcoming Events
-        </h1>
+<div id="events" className="py-[52px]">
+<div className="w-[90%] mx-auto max-w-7xl">
+<h1
+className="font-[400] text-[40px] lg:text-[48px] tracking-[0] text-center mx-auto mb-[50px]"
+id="faustina-font"
+>
+Upcoming Events
+</h1>
 
-        <div className="text-center mb-12">
-          <p className="text-[20px] lg:text-[25px] font-[400]" id="lato-font">
-            Join us for upcoming volunteer opportunities, training sessions, and community events.
-          </p>
-        </div>
+<div className="text-center mb-12">
+<p className="text-[20px] lg:text-[25px] font-[400]" id="lato-font">
+Join us for upcoming volunteer opportunities, training sessions, and community events.
+</p>
+</div>
 
-        {events.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {events.map((event) => (
-              <EventCard
-                key={event.id}
-                id={event.id}
-                name={event.name}
-                description={event.description}
-                startTime={event.start_time}
-                endTime={event.end_time}
-                place={event.place}
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-12">
-            <p className="text-xl text-gray-600" id="lato-font">
-              No upcoming events at this time. Check back soon!
-            </p>
-            <a
-              href="https://www.facebook.com/freeforcharity"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#2EA3F2] hover:underline text-lg mt-4 inline-block"
-              id="lato-font"
-            >
-              Visit our Facebook page
-            </a>
-          </div>
-        )}
-      </div>
+{events.length > 0 ? (
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+{events.map((event) => (
+<EventCard
+key={event.id}
+id={event.id}
+name={event.name}
+description={event.description}
+startTime={event.start_time}
+endTime={event.end_time}
+place={event.place}
+/>
+))}
+</div>
+) : (
+<div className="text-center py-12">
+<p className="text-xl text-gray-600" id="lato-font">
+No upcoming events at this time. Check back soon!
+</p>
+<a
+href="https://www.facebook.com/freeforcharity"
+target="_blank"
+rel="noopener noreferrer"
+className="text-[#2EA3F2] hover:underline text-lg mt-4 inline-block"
+id="lato-font"
+>
+Visit our Facebook page
+</a>
+</div>
+)}
+</div>
 
-      <div className="w-[95%] mt-[50px] mx-auto border border-[#2B627B]"></div>
-    </div>
+<div className="w-[95%] mt-[50px] mx-auto border border-[#2B627B]"></div>
+</div>
   )
 }
 
@@ -1143,3 +1143,4 @@ Set up monitoring for:
 **Estimated Implementation Time:** 4-6 hours (Phase 1), 16-20 hours (Phase 2)
 
 **Next Steps:** Begin with Phase 1 implementation following steps 1-10 above
+
