@@ -2113,3 +2113,71 @@ h6 {
     font-size: 1.5rem;
   }
 }
+
+/* ===========================
+   Footer Reference Updates
+   =========================== */
+
+/* Contact Info Layout */
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.contact-label {
+  display: block;
+  font-family: var(--font-faustina);
+  font-size: 1.1rem;
+  color: var(--color-white);
+  margin-bottom: 4px;
+}
+
+.contact-icon {
+  color: var(--color-secondary); /* Orange */
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.contact-info a, 
+.contact-info span {
+  color: #ccc;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* Social Icons - Orange Circle Style */
+.social-links {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.social-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: var(--color-secondary); /* Orange */
+  border-radius: 50%;
+  text-decoration: none;
+  transition: transform 0.2s;
+}
+
+.social-links a:hover {
+  transform: translateY(-3px);
+  background-color: #e55a00; /* Darker orange hover */
+}
+
+.social-icon {
+  color: var(--color-white);
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+/* Footer Bottom Link Color */
+.footer-bottom a {
+  color: #66b3ff !important;
+}

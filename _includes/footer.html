@@ -60,20 +60,43 @@
       <h3>Contact Us</h3>
       <ul class="contact-info">
         <li>
-          <span class="contact-icon">📧</span>
-          <a href="mailto:{{ site.organization.email }}">{{ site.organization.email }}</a>
+          <div class="contact-item">
+            <span class="contact-icon">✉️</span>
+            <div>
+              <span class="contact-label">E-mail</span>
+              <a href="mailto:{{ site.organization.email }}">{{ site.organization.email }}</a>
+            </div>
+          </div>
         </li>
         <li>
-          <span class="contact-icon">📞</span>
-          <a href="tel:+15202228104">(520) 222-8104</a>
+          <div class="contact-item">
+            <span class="contact-icon">📞</span>
+            <div>
+              <span class="contact-label">Call Us Today</span>
+              <a href="tel:+15202228104">(520) 222-8104</a>
+            </div>
+          </div>
         </li>
         <li>
-          <span class="contact-icon">📍</span>
-          <span>Tucson, Arizona, USA</span>
+          <div class="contact-item">
+            <span class="contact-icon">📍</span>
+            <div>
+              <span class="contact-label">Main Address</span>
+              <span>4030 Wake Forrest Road<br>Suite 349 Raleigh North<br>Carolina 27609</span>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="contact-item">
+            <span class="contact-icon">📍</span>
+            <div>
+              <span class="contact-label">PA Office Address</span>
+              <span>301 Science Park Road Suite<br>119 State College PA 16803</span>
+            </div>
+          </div>
         </li>
       </ul>
 
-      <h4>Follow Us</h4>
       <div class="social-links">
         <a href="https://www.facebook.com/freeforcharity" target="_blank" rel="noopener noreferrer"
           aria-label="Facebook">
@@ -95,6 +118,8 @@
   </div>
 
   <div class="footer-bottom">
-    <p>&copy; <span id="currentYear">{{ 'now' | date: "%Y" }}</span> Free For Charity. All rights reserved.</p>
+    <p>&copy; <span id="currentYear">{{ 'now' | date: "%Y" }}</span> All Rights Are Reserved by Free For Charity a US
+      501c3 Non Profit | A project of <a href="https://freeforcharity.org"
+        style="color: #007bff; text-decoration: underline;">https://freeforcharity.org</a></p>
   </div>
 </footer>
