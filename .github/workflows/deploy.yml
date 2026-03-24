@@ -8,7 +8,7 @@ on:
     workflows: ["Test & Visual Regression", "CodeQL Advanced"]
     types:
       - completed
-    branches: ['main']
+    branches: ["main"]
 
   # Allows manual deployment from Actions tab (bypasses checks)
   workflow_dispatch:
@@ -23,7 +23,7 @@ permissions:
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
-  group: 'pages'
+  group: "pages"
   cancel-in-progress: false
 
 jobs:
@@ -35,7 +35,7 @@ jobs:
     if: github.event_name != 'workflow_dispatch'
     outputs:
       all_passed: ${{ steps.check.outputs.all_passed }}
-    
+
     steps:
       - name: Check workflow statuses
         id: check
@@ -44,7 +44,7 @@ jobs:
           script: |
             const ref = context.payload.workflow_run.head_sha;
             const requiredWorkflows = ['CodeQL Advanced'];
-            
+
             // Get all workflow runs for this commit
             const { data: runs } = await github.rest.actions.listWorkflowRunsForRepo({
               owner: context.repo.owner,
@@ -52,7 +52,7 @@ jobs:
               head_sha: ref,
               per_page: 100
             });
-            
+
             // Check if all required workflows succeeded
             const workflowStatuses = {};
             for (const run of runs.workflow_runs) {
@@ -60,20 +60,20 @@ jobs:
                 workflowStatuses[run.name] = run.conclusion;
               }
             }
-            
+
             console.log('Workflow statuses:', workflowStatuses);
-            
+
             // Verify all required workflows succeeded
             const allPassed = requiredWorkflows.every(name => 
               workflowStatuses[name] === 'success'
             );
-            
+
             core.setOutput('all_passed', allPassed);
-            
+
             if (!allPassed) {
               core.setFailed('Not all required workflows have passed');
             }
-    
+
   build:
     name: Build Jekyll Site for GitHub Pages
     runs-on: ubuntu-latest
@@ -88,8 +88,8 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.2'
-          bundler-cache: true  # Runs 'bundle install' and caches gems
+          ruby-version: "3.2"
+          bundler-cache: true # Runs 'bundle install' and caches gems
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -121,7 +121,6 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
 
       - name: Post-deploy smoke check
         env:
