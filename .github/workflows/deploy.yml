@@ -43,7 +43,7 @@ jobs:
         with:
           script: |
             const ref = context.payload.workflow_run.head_sha;
-            const requiredWorkflows = ['CodeQL Advanced'];
+            const requiredWorkflows = ['Test & Visual Regression', 'CodeQL Advanced'];
 
             // Get all workflow runs for this commit
             const { data: runs } = await github.rest.actions.listWorkflowRunsForRepo({
